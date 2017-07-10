@@ -16,7 +16,7 @@ jan2017 <- read_dta("/Users/mialeung/Google Drive/AVR/data/slim_reg_omv_jan2017.
 head(subset(jan2017, select = 'precinct_name'))
 factor(jan2017$precinct_name)
 ```
-Precincts with highest OMV frequency 
+Precincts with highest OMV frequency (via line 16 code)
 1. 4602
 2. 1899
 3. 740
@@ -30,4 +30,17 @@ View(deep_dive_1)
 #do a descending sort here 
 ```
 
+```{r omv_jan2017_nodups file, include=FALSE}
+library(haven)
+omv_jan2017_nodups <- read_dta("/Users/mialeung/Google Drive/AVR/data/omv_jan2017_nodups.dta")
+
 ```
+
+Possible hotspot evaluation criteria:
+-Average rent (and if it has changed recently)
+-Major employers
+-Housing types (condo, co-op, houses)
+-Ownership vs Rental
+-If children reside in the area 
+-Previous use of the land 
+-Proximity to farming
