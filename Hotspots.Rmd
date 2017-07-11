@@ -10,7 +10,7 @@ library(tidyverse)
 library(foreign)
 ```
 
-```{r slim_reg_omv_history_jan2017 file, include=FALSE}
+```{r slim_reg_omv_jan2017 file, include=FALSE}
 library(haven)
 jan2017 <- read_dta("/Users/mialeung/Google Drive/AVR/data/slim_reg_omv_jan2017.dta")
 head(subset(jan2017, select = 'precinct_name'))
