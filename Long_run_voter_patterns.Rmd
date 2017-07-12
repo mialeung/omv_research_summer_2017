@@ -13,7 +13,7 @@ library(readxl)
 ```
 
 
-```{r import, include=T}
+```{r import, include=TRUE}
 setwd("~/Google Drive/Research/AVR/data/Monthly_Voter_Registration Reports/xlsx_Versions_by_Year/")
 
 # First get a vector list of the file names we want to process
@@ -27,7 +27,7 @@ file_names <- list.files(pattern = "*.xlsx", include.dirs = TRUE, full.names = T
 # NOTE if you receive an error that a file cannot be opened with a pattern
 # "./YYYY/~..." this is because you have Excel open. Close Excel.
 
-file_names <- file_names[(substr(file_names,3,6) != "2012")]
+file_names2 <- file_names[(substr(file_names,3,6) != "2012")]
 
 # Now create a function to read in the Excel files, and capture the filename 
 # as a variable. We will use this to create a month and year 
@@ -38,8 +38,22 @@ read.myfiles <- function(filename) {
   mutate(name = filename)
 }
 
-mydata <- lapply(file_names, read.myfiles)
+mydata <- lapply(file_names2, read.myfiles)
 mydata2 <- bind_rows(mydata)
 
+# Now examine the patterns for the filenames so that we can capture the dates 
+
+table(mydata2$name)
+
+# Some months have a 0 before the month, some do not. We have to do a little trick
+# in the second mutate to make sure we capture the months correctly
+
+mydata2 <- mydata2 %>% mutate(year = substr(name,3,6)) # All years are cols 3-6
+
+mydata2 <- mutate(mydata2, month = ifelse( (substr(name,9,9) == "-"), substr(name,8,8),
+                substr(name,8,9)))
+
+table(mydata2$year)
+table(mydata2$month)
 
 ```
