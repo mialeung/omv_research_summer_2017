@@ -8,12 +8,24 @@ What is the long-run pattern of voter registration in Oregon? How has this chang
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(foreign)
+library(readxl)
 ```
 
-```{r import, include=FALSE}
-jun17 <- read.csv("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/CSV Versions by Year/06-17.csv")
-data = readLines("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/CSV Versions by Year/06-17.csv")
-skip_first_row  = data[-1]
-jun17_tidy= read.csv(textConnection(skip_first_row), header = TRUE, stringsAsFactors = FALSE)
+
+```{r import, include=T}
+setwd("~/Google Drive/AVR/data/Monthly_Voter_Registration Reports/xlsx_Versions_by_Year/2017/")
+file_names <- list.files(pattern = "0*.xlsx")
+
+read.myfiles <- function(filename) {
+  d <- read_xlsx(filename, sheet = "Raw Data")
+  #d$name <- filename
+}
+
+mydata <- lapply(file_names, read.myfiles)
+mydata2 <- bind_rows(mydata)
+#years <- c(2012, 2013, 2014, 2015,2016,2017) 
+# apply (years, MARGIN= c(0,1), FUN= years + 1 )
+
 
 ```
