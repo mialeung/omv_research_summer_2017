@@ -1,7 +1,6 @@
 ---
 title: "Long Run Voter Patterns"
-author: "Mia Leung"
-date: "7/10/2017"
+
 output: html_document
 ---
 ## Question
@@ -12,6 +11,6 @@ library(tidyverse)
 ```
 
 ```{r import, include=FALSE}
-load(readxl)
-jun17 <- read_excel("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/xlsx Versions by Year/2017/06-17.xlsx")
+jun17 <- read.csv("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/CSV Versions by Year/06-17.csv")
+#problem: row one should be the columns 
 ```
