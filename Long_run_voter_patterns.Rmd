@@ -12,5 +12,8 @@ library(tidyverse)
 
 ```{r import, include=FALSE}
 jun17 <- read.csv("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/CSV Versions by Year/06-17.csv")
-#problem: row one should be the columns 
+data = readLines("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/CSV Versions by Year/06-17.csv")
+skip_first_row  = data[-1]
+jun17_tidy= read.csv(textConnection(skip_first_row), header = TRUE, stringsAsFactors = FALSE)
+
 ```
