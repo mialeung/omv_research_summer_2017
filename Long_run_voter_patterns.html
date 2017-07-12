@@ -9,7 +9,6 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Mia Leung" />
 
 
 <title>Long Run Voter Patterns</title>
@@ -117,8 +116,6 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Long Run Voter Patterns</h1>
-<h4 class="author"><em>Mia Leung</em></h4>
-<h4 class="date"><em>7/10/2017</em></h4>
 
 </div>
 
@@ -126,6 +123,32 @@ $(document).ready(function () {
 <div id="question" class="section level2">
 <h2>Question</h2>
 <p>What is the long-run pattern of voter registration in Oregon? How has this changed with the start of AVR?</p>
+<pre class="r"><code>setwd(&quot;~/Google Drive/Research/AVR/data/Monthly_Voter_Registration Reports/xlsx_Versions_by_Year/&quot;)
+
+# First get a vector list of the file names we want to process
+
+file_names &lt;- list.files(pattern = &quot;*.xlsx&quot;, include.dirs = TRUE, full.names = TRUE,
+                        recursive = TRUE)
+
+# However, the files that are stored in the &quot;2012&quot; directory are not in a compatible
+# format, so we need to remove these from the vector
+
+# NOTE if you receive an error that a file cannot be opened with a pattern
+# &quot;./YYYY/~...&quot; this is because you have Excel open. Close Excel.
+
+file_names &lt;- file_names[(substr(file_names,3,6) != &quot;2012&quot;)]
+
+# Now create a function to read in the Excel files, and capture the filename 
+# as a variable. We will use this to create a month and year 
+
+read.myfiles &lt;- function(filename) {
+
+  d &lt;- read_xlsx(filename, sheet = &quot;Raw Data&quot;) %&gt;% 
+  mutate(name = filename)
+}
+
+mydata &lt;- lapply(file_names, read.myfiles)
+mydata2 &lt;- bind_rows(mydata)</code></pre>
 </div>
 
 

@@ -1,4 +1,4 @@
----
+file---
 title: "Long Run Voter Patterns"
 
 output: html_document
@@ -14,18 +14,32 @@ library(readxl)
 
 
 ```{r import, include=T}
-setwd("~/Google Drive/AVR/data/Monthly_Voter_Registration Reports/xlsx_Versions_by_Year/2017/")
-file_names <- list.files(pattern = "0*.xlsx")
+setwd("~/Google Drive/Research/AVR/data/Monthly_Voter_Registration Reports/xlsx_Versions_by_Year/")
+
+# First get a vector list of the file names we want to process
+
+file_names <- list.files(pattern = "*.xlsx", include.dirs = TRUE, full.names = TRUE,
+                        recursive = TRUE)
+
+# However, the files that are stored in the "2012" directory are not in a compatible
+# format, so we need to remove these from the vector
+
+# NOTE if you receive an error that a file cannot be opened with a pattern
+# "./YYYY/~..." this is because you have Excel open. Close Excel.
+
+file_names <- file_names[(substr(file_names,3,6) != "2012")]
+
+# Now create a function to read in the Excel files, and capture the filename 
+# as a variable. We will use this to create a month and year 
 
 read.myfiles <- function(filename) {
-  d <- read_xlsx(filename, sheet = "Raw Data")
-  #d$name <- filename
+
+  d <- read_xlsx(filename, sheet = "Raw Data") %>% 
+  mutate(name = filename)
 }
 
 mydata <- lapply(file_names, read.myfiles)
 mydata2 <- bind_rows(mydata)
-#years <- c(2012, 2013, 2014, 2015,2016,2017) 
-# apply (years, MARGIN= c(0,1), FUN= years + 1 )
 
 
 ```
