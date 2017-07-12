@@ -1,0 +1,16 @@
+---
+title: "Long Run Voter Patterns"
+
+output: html_document
+---
+## Question
+What is the long-run pattern of voter registration in Oregon? How has this changed with the start of AVR?
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r import, include=FALSE}
+jun17 <- read.csv("/Users/mialeung/Google Drive/AVR/data/Monthly Voter Registration Reports/CSV Versions by Year/06-17.csv")
+#problem: row one should be the columns 
+```

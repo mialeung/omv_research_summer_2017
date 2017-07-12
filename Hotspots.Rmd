@@ -10,7 +10,7 @@ library(tidyverse)
 library(foreign)
 ```
 
-```{r slim_reg_omv_history_jan2017 file, include=FALSE}
+```{r slim_reg_omv_jan2017 file, include=FALSE}
 library(haven)
 # MIA UNCOMMENT
 # jan2017 <- read_dta("~/Google Drive/AVR/data/slim_reg_omv_jan2017.dta")
