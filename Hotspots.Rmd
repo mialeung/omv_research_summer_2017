@@ -10,36 +10,24 @@ library(tidyverse)
 library(foreign)
 ```
 
-```{r slim_reg_omv_jan2017 file, include=FALSE}
-library(haven)
-# MIA UNCOMMENT
-# jan2017 <- read_dta("~/Google Drive/AVR/data/slim_reg_omv_jan2017.dta")
-jan2017 <- read_dta("~/Google Drive/Research/AVR/data/slim_reg_omv_jan2017.dta")
-
-head(subset(jan2017, select = 'precinct_name'))
-factor(jan2017$precinct_name)
-```
-Precincts with highest OMV frequency (via line 16 code)
-1. 4602
-2. 1899
-3. 740
-4. 748
-5. 4301
 
 ```{r deep_dive_v1 file, include=FALSE}
 library(haven)
-deep_dive_1 <- read_dta("~/Google Drive/Research/AVR/data/deepdive_v1.dta") 
+deep_dive_1 <- read_csv("/Users/mialeung/Google Drive/AVR/data/deepdive_v1.csv") 
 View(deep_dive_1)
-#do a descending sort here 
+geo_hotspots<- group_by(deep_dive_1, geoid) %>% summarise(omv_p= mean(omv_p))%>% arrange(desc(omv_p))
+top_100<-head(geo_hotspots,100)
+
+top_100_info<- inner_join(top_100, deep_dive_1) 
+top_100_info_mod <- is.numeric(top_100, geoid)
+geom_point(top_100_info, aes(x=geoid, y=omv_p))
+#eror msg that geoid doen't exist, but it should! s
+
+
 ```
 
-```{r omv_jan2017_nodups file, include=FALSE}
-library(haven)
-omv_jan2017_nodups <- read_dta("~/Google Drive/AVR/data/omv_jan2017_nodups.dta")
 
-```
-
-Possible hotspot evaluation criteria:
+Possible hotspot evaluation criteria (outside of dataset):
 -Average rent (and if it has changed recently)
 -Major employers
 -Housing types (condo, co-op, houses)
