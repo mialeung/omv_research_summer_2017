@@ -1,6 +1,5 @@
 file---
 title: "Long Run Voter Patterns"
-
 output: html_document
 ---
 ## Question
