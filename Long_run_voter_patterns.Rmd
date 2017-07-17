@@ -60,6 +60,11 @@ table(mydata2$month)
 mydata2$date <- as_date(paste(mydata2$year, mydata2$month, "01", sep="/"))
 table(mydata2$date)
 
+# Rename columns to legal Stata names (no spaces)
+
+mydata2 <- rename(mydata2, SRCode = `SR Code`, SRDesc = `SR Desc`, CongCode = `Cong Code`, 
+       CongDesc = `Cong Desc`, PartyCount = `Party Count`)
+
 # Write a Stata output file for Paul to use
 write.dta(mydata2, 
               "~/Google Drive/Research/AVR/data/monthly_regtotals_2013-2017_by_county_party.dta")
