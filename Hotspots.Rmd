@@ -19,7 +19,8 @@ geo_hotspots<- group_by(deep_dive_1, geoid) %>% summarise(omv_p= mean(omv_p))%>%
 top_100<-head(geo_hotspots,100)
 
 top_100_info<- inner_join(top_100, deep_dive_1) 
-top_100_info_mod <- is.numeric(top_100, geoid)
+#top_100_info_mod <- is.numeric(top_100, geoid)
+top_100_info_mod <- as.numeric(top_100, geoid)
 geom_point(top_100_info, aes(x=geoid, y=omv_p))
 #error msg that geoid doen't exist, but it should as glimpse of top_100 shows it as a chr and I tried to convert it to a num for geom_point viz 
 
