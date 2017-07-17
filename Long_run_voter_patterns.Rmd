@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(foreign)
 library(readxl)
+library(lubridate)
 ```
 
 
@@ -54,5 +55,13 @@ mydata2 <- mutate(mydata2, month = ifelse( (substr(name,9,9) == "-"), substr(nam
 
 table(mydata2$year)
 table(mydata2$month)
+
+# Now create a "legal" date 
+mydata2$date <- as_date(paste(mydata2$year, mydata2$month, "01", sep="/"))
+table(mydata2$date)
+
+# Write a Stata output file for Paul to use
+write.dta(mydata2, 
+              "~/Google Drive/Research/AVR/data/monthly_regtotals_2013-2017_by_county_party.dta")
 
 ```
