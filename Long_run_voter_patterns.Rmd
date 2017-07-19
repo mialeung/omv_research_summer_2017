@@ -57,7 +57,7 @@ table(mydata2$year)
 table(mydata2$month)
 
 # Now create a "legal" date 
-mydata2$date <- as_date(paste(mydata2$year, mydata2$month, "01", sep="/"))
+mydata2$date <- as_date(paste(mydata2$year, mydata2$month, "28", sep="/"))
 table(mydata2$date)
 
 # Rename columns to legal Stata names (no spaces)
@@ -70,3 +70,19 @@ write.dta(mydata2,
               "~/Google Drive/Research/AVR/data/monthly_regtotals_2013-2017_by_county_party.dta")
 
 ```
+
+```{r pdfextract, include=TRUE}
+
+library(tabulizer)
+
+# Change to the new directory 
+
+setwd("~/Google Drive/Research/AVR/data/Monthly_VoterReg_PDF_From_Web/registration")
+
+# First get a vector list of the file names we want to process
+
+file_names <- list.files(pattern = "dec12.pdf")
+
+regdata <- lapply(file_names, extract_tables, pages=(c(1,2)),
+                  area=list(c(144.73926,48.67908,725.91977,563.24355)), 
+                  method= "data.frame")
